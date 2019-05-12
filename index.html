@@ -122,9 +122,9 @@
             }
             search(x, y) {
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x + i, y)) {
-                        if(this.map[x + i][y] === this.state) {
-                            this.ans["east"] = [x + i, y];
+                    if(this.judge(y + i, x)) {
+                        if(this.map[y + i][x] === this.state) {
+                            this.ans["east"] = [y + i, x];
                             break;
                         }
                     } else {
@@ -132,9 +132,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x - i, y)) {
-                        if(this.map[x - i][y] === this.state) {
-                            this.ans["west"] = [x - i, y];
+                    if(this.judge(y - i, x)) {
+                        if(this.map[y - i][x]=== this.state) {
+                            this.ans["west"] = [y - i, x];
                             break;
                         }
                     } else {
@@ -142,9 +142,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x, y - i)) {
-                        if(this.map[x][y - i] === this.state) {
-                            this.ans["south"] = [x, y - i];
+                    if(this.judge(y, x-i)) {
+                        if(this.map[y][x - i] === this.state) {
+                            this.ans["south"] = [y, x - i];
                             break;
                         }
                     } else {
