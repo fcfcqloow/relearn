@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <table align="center">
+            <tr>
+                <td id="1" class="panel">1</td>
+                <td id="2" class="panel">2</td>
+                <td id="3" class="panel">3</td>
+                <td id="4" class="panel">4</td>
+                <td id="5" class="panel">5</td>
+            </tr>
+            <tr>
+                <td id="6" class="panel">6</td>
+                <td id="7" class="panel">7</td>
+                <td id="8" class="panel">8</td>
+                <td id="9" class="panel">9</td>
+                <td id="10" class="panel">10</td>
+            </tr>
+            <tr>
+                <td id="11" class="panel">11</td>
+                <td id="12" class="panel">12</td>
+                <td id="13" class="panel">13</td>
+                <td id="14" class="panel">14</td>
+                <td id="15" class="panel">15</td>
+            </tr>
+            <tr>
+                <td id="16" class="panel">16</td>
+                <td id="17" class="panel">17</td>
+                <td id="18" class="panel">18</td>
+                <td id="19" class="panel">19</td>
+                <td id="20" class="panel">20</td>
+            </tr>
+            <tr>
+                <td id="21" class="panel">21</td>
+                <td id="22" class="panel">22</td>
+                <td id="23" class="panel">23</td>
+                <td id="24" class="panel">24</td>
+                <td id="25" class="panel">25</td>
+            </tr>
+        </table>
+        <table style="margin-top: 10px;" align="center">
+            <tr>
+                <td class="red" style="background-color: #E91E63"></td>
+                <td class="white" style="background-color: #FFFFFF"></td>
+                <td class="green" style="background-color: #2E7D32"></td>
+                <td class="blue" style="background-color: #304FFE"></td>
+                <td class="gray" style="background-color: #ACACAC"></td>
+            </tr>
+        </table>
+    </main>
+    <script>
+        class Panel {
+            // map: number[5][5];
+            // state: string[5];
+            /*
+            const RED = 1
+            const BLUE = 2
+            const WHITE = 3;
+            const GREEN = 4;
+            const GRAY = 5;
+            */
+            constructor() {
+                this.reset();
+                console.log("include jquery");
+                this.state = 0;
+                this.map = [];
+                this.color = "#ACACAC";
+                for(let i = 0; i < 5; i++) {
+                    this.map[i] = []
+                    for (let j=  0; j < 5; j++) {
+                        this.map[i][j] = 0;
+                    }
+                }
+            }
+            click(id) {
+                id = parseInt(id);
+                var temp = [(id - 1) / 5, (id - 1) % 5];
+                this.setMap(parseInt(temp[0]), temp[1], id)
+                this.search(parseInt(temp[0]), temp[1])
+                this.reverseMap(parseInt(temp[0]), temp[1])
+                this.reset();
+            }
+            reverseMap(x, y) {
+                this.search(x, y);
+                for (let i = 0; y + i  <= this.ans["north"][1]; i++) {
+                    this.setMap(x, y + i, x*5 + y + i*5 + 1 )
+                    console.log(x*5 + y + i + 1)
+                }
+            }
+            setMap(x, y, id) {
+                this.map[x][y] = this.state;
+                $("#" + id).css("background-color", panel.color);
+            }
+            reset() {
+                this.RED = 1
+                this.BLUE = 2
+                this.WHITE = 3;
+                this.GREEN = 4;
+                this.GRAY = 5;
+                this.STATE = ["", "red", "bule", "white", "green", "gray"];
+                this.ans = {
+                    north : [],
+                    NE:  [],
+                    east: [],
+                    SE: [],
+                    south: [],
+                    SW: [],
+                    west: [],
+                    NW: []
+                };
+            }
+            search(x, y) {
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x + i, y)) {
+                        if(this.map[x + i][y] === this.state) {
+                            this.ans["east"] = [x + i, y];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x - i, y)) {
+                        if(this.map[x - i][y] === this.state) {
+                            this.ans["west"] = [x - i, y];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x, y - i)) {
+                        if(this.map[x][y - i] === this.state) {
+                            this.ans["south"] = [x, y - i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x + i, y)) {
+                        if(this.map[x + i][y] === this.state) {
+                            this.ans["north"] = [x, y + i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x + i, y + i)) {
+                        if(this.map[x + i][y + i] === this.state) {
+                            this.ans["NE"] = [x + i, y + i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x - i, y + i)) {
+                        if(this.map[x - i][y + i] === this.state) {
+                            this.ans["NW"] = [x - i, y + i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x + i, y - i)) {
+                        if(this.map[x + i][y - i] === this.state) {
+                            this.ans["SE"] = [x + i, y - i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                for(let i = 1; i < 5; i++) {
+                    if(this.judge(x - i, y - i)) {
+                        if(this.map[x - i][y - i] === this.state) {
+                            this.ans["SW"] = [x - i, y - i];
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+            judge(x, y) {
+                if (x < 0 || y < 0|| x > 4 || y > 4) return false;
+                else return true;
+            }
+        }
+        var panel = new Panel();
+        var color = "#ACACAC";
+        $(".panel").on("click",function(){
+            panel.click(this.id);
+            $(this).css("background-color", panel.color);
+        })
+        
+        $(".red").on("click",()=>{
+            panel.color = "#E91E63"
+            panel.state = panel.RED;
+        })
+        $(".blue").on("click",()=>{
+            panel.color = "#304FFE"
+            panel.state = panel.BLUE;
+        })
+        $(".white").on("click",()=>{
+            panel.color = "#FFFFFF"
+            panel.state = panel.WHITE;
+        })
+        $(".green").on("click",()=>{
+            panel.color = "#2E7D32"
+            panel.state = panel.GREEN;
+        })
+        $(".gray").on("click",()=>{
+            panel.color = "#ACACAC"
+            panel.state = panel.GRAY;
+        })
+
+    </script>
+    <style>
+        td {
+            text-align: center;
+            font-size: 80px;
+            color: #232323;
+            border: solid 2px #000000;
+            width:200px;
+            height:180px;
+            background-color: #ACACAC;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>
