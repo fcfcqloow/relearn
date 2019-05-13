@@ -124,7 +124,7 @@
                 for(let i = 1; i < 5; i++) {
                     if(this.judge(y + i, x)) {
                         if(this.map[y + i][x] === this.state) {
-                            this.ans["east"] = [y + i, x];
+                            this.ans["south"] = [y + i, x];
                             break;
                         }
                     } else {
@@ -134,7 +134,7 @@
                 for(let i = 1; i < 5; i++) {
                     if(this.judge(y - i, x)) {
                         if(this.map[y - i][x]=== this.state) {
-                            this.ans["west"] = [y - i, x];
+                            this.ans["north"] = [y - i, x];
                             break;
                         }
                     } else {
@@ -144,7 +144,7 @@
                 for(let i = 1; i < 5; i++) {
                     if(this.judge(y, x-i)) {
                         if(this.map[y][x - i] === this.state) {
-                            this.ans["south"] = [y, x - i];
+                            this.ans["west"] = [y, x - i];
                             break;
                         }
                     } else {
@@ -152,9 +152,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x + i, y)) {
-                        if(this.map[x + i][y] === this.state) {
-                            this.ans["north"] = [x, y + i];
+                    if(this.judge(y + i, x)) {
+                        if(this.map[y + i][x] === this.state) {
+                            this.ans["east"] = [y, x + i];
                             break;
                         }
                     } else {
@@ -162,9 +162,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x + i, y + i)) {
-                        if(this.map[x + i][y + i] === this.state) {
-                            this.ans["NE"] = [x + i, y + i];
+                    if(this.judge(y + i, x + i)) {
+                        if(this.map[y + i][x + i] === this.state) {
+                            this.ans["SE"] = [y + i, x + i];
                             break;
                         }
                     } else {
@@ -172,9 +172,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x - i, y + i)) {
-                        if(this.map[x - i][y + i] === this.state) {
-                            this.ans["NW"] = [x - i, y + i];
+                    if(this.judge(y - i, x + i)) {
+                        if(this.map[y - i][x + i] === this.state) {
+                            this.ans["NE"] = [y - i, x + i];
                             break;
                         }
                     } else {
@@ -182,9 +182,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x + i, y - i)) {
-                        if(this.map[x + i][y - i] === this.state) {
-                            this.ans["SE"] = [x + i, y - i];
+                    if(this.judge(y + i, x - i)) {
+                        if(this.map[y + i][x - i] === this.state) {
+                            this.ans["SW"] = [y + i, x - i];
                             break;
                         }
                     } else {
@@ -192,9 +192,9 @@
                     }
                 }
                 for(let i = 1; i < 5; i++) {
-                    if(this.judge(x - i, y - i)) {
-                        if(this.map[x - i][y - i] === this.state) {
-                            this.ans["SW"] = [x - i, y - i];
+                    if(this.judge(y - i, x - i)) {
+                        if(this.map[y - i][x - i] === this.state) {
+                            this.ans["NW"] = [y - i, x - i];
                             break;
                         }
                     } else {
