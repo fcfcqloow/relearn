@@ -87,19 +87,17 @@
                 id = parseInt(id);
                 var temp = [(id - 1) / 5, (id - 1) % 5];
                 this.setMap(parseInt(temp[0]), temp[1], id)
-                this.search(parseInt(temp[0]), temp[1])
                 this.reverseMap(parseInt(temp[0]), temp[1])
                 this.reset();
             }
             reverseMap(x, y) {
                 this.search(x, y);
-                for (let i = 0; y + i  <= this.ans["north"][1]; i++) {
-                    this.setMap(x, y + i, x*5 + y + i*5 + 1 )
-                    console.log(x*5 + y + i + 1)
+                for (let i = 0; y - i  >= this.ans["north"][1]; i++) {
+                    this.setMap(x, y - i, 1 - y＊5  + x)
                 }
             }
             setMap(x, y, id) {
-                this.map[x][y] = this.state;
+                this.map[y][x] = this.state;
                 $("#" + id).css("background-color", panel.color);
             }
             reset() {
